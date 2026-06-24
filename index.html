@@ -48,19 +48,64 @@
             overflow-x: hidden;
         }
 
-        /* --- Loader --- */
-        #loader {
-            position: fixed; inset: 0; background: #000; z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease;
-        }
-        .butterfly-loader { position: relative; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; }
-        .wing { width: 25px; height: 45px; background: var(--neon-purple); border-radius: 50% 50% 10% 50%; box-shadow: 0 0 20px var(--neon-purple); transform-origin: right center; animation: flapL 0.2s infinite alternate ease-in-out; }
-        .wing.right { border-radius: 50% 50% 50% 10%; transform-origin: left center; animation: flapR 0.2s infinite alternate ease-in-out; }
-        @keyframes flapL { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(70deg); } }
-        @keyframes flapR { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-70deg); } }
+        
+/* --- Loader --- */
+#loader{
+position:fixed;inset:0;background:#000;z-index:9999;
+display:flex;justify-content:center;align-items:center;
+transition:opacity .8s ease;
+overflow:hidden;
+}
+.smoke-loader{
+position:relative;
+text-align:center;
+}
+.smoke-text{
+font-family:'Anton',sans-serif;
+font-size:4rem;
+letter-spacing:10px;
+color:#fff;
+}
+.smoke-text span{
+display:inline-block;
+opacity:0;
+filter:blur(18px);
+animation:smokeReveal 1.8s forwards;
+}
+.smoke-text span:nth-child(1){animation-delay:.05s}
+.smoke-text span:nth-child(2){animation-delay:.15s}
+.smoke-text span:nth-child(3){animation-delay:.25s}
+.smoke-text span:nth-child(4){animation-delay:.35s}
+.smoke-text span:nth-child(6){animation-delay:.45s}
+.smoke-text span:nth-child(7){animation-delay:.55s}
+.smoke-text span:nth-child(8){animation-delay:.65s}
+.smoke-text span:nth-child(9){animation-delay:.75s}
+.smoke-text span:nth-child(10){animation-delay:.85s}
 
-        /* --- Flying Effects Container --- */
+.energy-sweep{
+position:absolute;
+top:50%;
+left:-30%;
+width:40%;
+height:140%;
+transform:translateY(-50%) skewX(-25deg);
+background:linear-gradient(90deg,transparent,rgba(181,0,255,.95),transparent);
+filter:blur(12px);
+animation:sweep 2.2s ease forwards;
+}
+
+@keyframes smokeReveal{
+0%{opacity:0;filter:blur(20px);transform:translateY(20px)}
+100%{opacity:1;filter:blur(0);transform:translateY(0)}
+}
+@keyframes sweep{
+0%{left:-40%;opacity:0}
+20%{opacity:1}
+100%{left:120%;opacity:0}
+}
+
+/* --- Flying Effects Container --- */
+
         #fx-container { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
 
         /* --- Navbar --- */
@@ -72,6 +117,12 @@
         }
         .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; display: flex; align-items: center; gap: 8px; color: #fff; }
         .logo .icon { color: var(--neon-pink); font-size: 1.8rem; }
+.brand-logo{
+width:34px;
+height:34px;
+object-fit:contain;
+filter:drop-shadow(0 0 10px rgba(181,0,255,.6));
+}
         .nav-links { display: flex; gap: 2.5rem; }
         .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; letter-spacing: 1.5px; transition: 0.3s; }
         .nav-links a:hover, .nav-links a.active { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
@@ -100,7 +151,7 @@
         /* LAYER 1: Giant Text (Scales to completely fit inside window width) */
         .giant-text-wrapper {
             position: absolute;
-            top: 45%; 
+            top: 42%; 
             left: 50%; 
             transform: translate(-50%, -50%);
             width: 100%; 
@@ -114,7 +165,7 @@
             white-space: nowrap; 
             text-transform: uppercase;
             line-height: 0.9;
-            letter-spacing: -1px;
+            letter-spacing: 10px;
             text-shadow: 0px 10px 30px rgba(0,0,0,0.8);
         }
 
@@ -493,18 +544,24 @@ color:#777;
 </head>
 <body>
 
-    <div id="loader">
-        <div class="butterfly-loader">
-            <div class="wing left"></div>
-            <div class="wing right"></div>
-        </div>
+    
+<div id="loader">
+  <div class="smoke-loader">
+    <div class="smoke-text">
+      <span>M</span><span>O</span><span>O</span><span>N</span>
+      <span>&nbsp;</span>
+      <span>W</span><span>I</span><span>T</span><span>C</span><span>H</span>
     </div>
+    <div class="energy-sweep"></div>
+  </div>
+</div>
 
-    <div id="fx-container"></div>
+<div id="fx-container">
+</div>
 
     <header class="navbar">
         <div class="logo">
-            <span class="icon">M</span> MOONWITCH
+            <img src="kaddu.png" alt="Moon Witch Logo" class="brand-logo"> MOONWITCH
         </div>
         <nav class="nav-links">
             <a href="#home" class="active">HOME</a>
